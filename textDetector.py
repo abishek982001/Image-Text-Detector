@@ -13,7 +13,7 @@ for box_info in boxes.splitlines():
     box_info = box_info.split(' ')
     #print(box_info)
     x,y,w,h = int(box_info[1]), int(box_info[2]), int(box_info[3]), int(box_info[4])  # Get the coordinates to draw boxes
-    cv2.rectangle(image, (x,y), (x+w,y+h), (0,0,255), 1)
+    cv2.rectangle(image, (x,height_of_image-y), (w,height_of_image-h), (0,0,255), 1)  # Draws the boxes
 
 cv2.imshow("Result", image)
 cv2.waitKey(0)

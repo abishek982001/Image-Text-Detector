@@ -46,7 +46,7 @@ class BoundingBox:
 
 
 pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe"
-
+boundingBox = BoundingBox()  
 while(True):
 
     print("*****Menu*****")
@@ -77,9 +77,9 @@ while(True):
         print("Invalid input")
         continue
     if choice == 1:
-        BoundingBox.detect_characters(flag)
+        boundingBox.detect_characters(flag)
     if choice == 2:
-        BoundingBox.detect_words(flag)
+        boundingBox.detect_words(flag)
 
     cv2.imshow("Result", image)
     cv2.waitKey(0)

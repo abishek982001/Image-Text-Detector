@@ -1,9 +1,11 @@
 import cv2
 import pytesseract
 
+pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe"
+
 class BoundingBox:
 
-    def detect_characters(self, putText=False):
+    def detect_characters(self, image, putText=False):
         """Function that detects text and draws boxes character by character"""
         image_height, image_width,_ = image.shape
         boxes = pytesseract.image_to_boxes(image)
@@ -15,7 +17,7 @@ class BoundingBox:
             if putText == True:
                 cv2.putText(image, box_info[0], (x, image_height-y+25), cv2.FONT_HERSHEY_COMPLEX, 1, (50,50,255), 2)
 
-    def detect_words(self, putText=False):
+    def detect_words(self, image, putText=False):
         """Function that detects words and draws boxes"""
         image_height, image_width,_ = image.shape
         boxes = pytesseract.image_to_data(image)
@@ -44,42 +46,3 @@ class BoundingBox:
                     if putDigit == True:
                         cv2.putText(image, box_info[11], (x, y), cv2.FONT_HERSHEY_COMPLEX, 1, (50,50,255), 2)
 
-
-pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe"
-boundingBox = BoundingBox()  
-while(True):
-
-    print("*****Menu*****")
-    print("1. Detect characters in image")
-    print("2. Detect words in image")
-    print("3. Quit")
-    choice = int(input("Enter your choice:"))
-    if choice > 3 or choice < 1:
-        print("Invalid choice")
-        continue
-    if choice == 3:
-        print("Quitting...")
-        exit(0)
-
-    try:
-        path = input("Enter the path of the image:")
-        image = cv2.imread(path)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    except:
-        print("Invalid path")
-        continue
-    output_text = input("Do you want the detected text to be printed in the image Enter (yes/no)")
-    if output_text.lower() == 'no':
-        flag = False
-    elif output_text.lower() == 'yes':
-        flag = True
-    else:
-        print("Invalid input")
-        continue
-    if choice == 1:
-        boundingBox.detect_characters(flag)
-    if choice == 2:
-        boundingBox.detect_words(flag)
-
-    cv2.imshow("Result", image)
-    cv2.waitKey(0)

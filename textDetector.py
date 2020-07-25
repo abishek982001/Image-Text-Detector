@@ -55,7 +55,7 @@ while(True):
     print("3. Quit")
     choice = int(input("Enter your choice:"))
     if choice > 3 or choice < 1:
-        print("Invlid choice")
+        print("Invalid choice")
         continue
     if choice == 3:
         print("Quitting...")

@@ -1,6 +1,5 @@
-import pytesseract
-import cv2
 from textDetector import *
+from text_to_speech import *
 
 pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe"
 boundingBox = BoundingBox()
@@ -36,7 +35,7 @@ while(True):
     if choice == 1:
         boundingBox.detect_characters(image, flag)
     if choice == 2:
-        boundingBox.detect_words(image, flag)
+        words = boundingBox.detect_words(image, flag)
 
     cv2.imshow("Result", image)
     cv2.waitKey(0)

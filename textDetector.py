@@ -1,12 +1,12 @@
 import cv2
 import pytesseract
-from text_to_speech import *
+
 
 pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe"
 
 
 class BoundingBox:
-    words = []
+    words = ''
 
     def detect_characters(self, image, putText=False):
         """Function that detects text and draws boxes character by character"""
@@ -36,10 +36,11 @@ class BoundingBox:
                     cv2.rectangle(image, (x, y), (w + x, h + y), (0, 0, 255), 3)
                     if putText == True:
                         cv2.putText(image, box_info[11], (x, y), cv2.FONT_HERSHEY_COMPLEX, 1, (50, 50, 255), 2)
-                        self.words.append(box_info[11])
+                        self.words += box_info[11]
         # if len(self.words) != 0:
         #     for word in self.words:
         #         speak(word)
+        return self.words
 
     def detect_digits_only(self, image, putDigit=False):
         """Function that detects digits only"""
